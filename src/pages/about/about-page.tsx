@@ -1,1 +1,1 @@
-export const AboutPage = () => <section>Abou Paget</section>;
+export const AboutPage = () => <section>About Page</section>;
