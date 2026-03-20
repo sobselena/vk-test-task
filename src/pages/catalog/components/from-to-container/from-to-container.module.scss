@@ -1,0 +1,22 @@
+.fromToRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.fromToValue {
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-secondary);
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.8rem;
+  flex: 1;
+  font-size: 1.4rem;
+  white-space: nowrap;
+}
+
+.slider {
+  width: 90%;
+  margin: 0 auto 1.6rem auto;
+}
