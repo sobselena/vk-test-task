@@ -4,33 +4,38 @@
 
 .title {
   margin-bottom: 1.2rem;
+
   font-size: 1.6rem;
-  text-transform: uppercase;
   font-weight: 700;
   color: var(--color-text-secondary);
+  text-transform: uppercase;
   letter-spacing: 0.4px;
 }
 
 .subtitle {
   margin-bottom: 1.2rem;
-  text-transform: uppercase;
   font-size: 1.4rem;
   font-weight: 700;
+  text-transform: uppercase;
 }
 
 .implementBtn {
+  cursor: pointer;
+
   width: 100%;
-  background-color: var(--color-bg);
+  margin-top: 1.6rem;
+  padding: 0.8rem;
   border: 2px solid var(--color-border);
   border-radius: 0.5rem;
-  padding: 0.8rem;
+
   font-size: 1.6rem;
-  margin-top: 1.6rem;
+
+  background-color: var(--color-bg);
+
   transition: all 0.2s;
-  cursor: pointer;
 }
 
 .implementBtn:hover {
-  background-color: var(--color-primary);
   color: var(--color-bg);
+  background-color: var(--color-primary);
 }

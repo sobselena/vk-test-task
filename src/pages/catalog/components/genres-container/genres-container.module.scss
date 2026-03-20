@@ -1,7 +1,8 @@
 .genresContainer {
-  height: 14rem;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+
+  height: 14rem;
   margin-bottom: 1.5rem;
 }

@@ -1,8 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { Genres } from '../../types/movies-api';
+import type { Genre, Genres, MoviesResponse } from '../../types/movies-api';
+import { API_KEY } from '../../constants/movies-api';
 
-export const API_KEY =
-  'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4YzhhZDdhN2QwOTkyMzA3YjE1NjUyZGNjYjE2YWNiYSIsIm5iZiI6MTczNzQwMzkzOS45NDUsInN1YiI6IjY3OGVhZTIzOWQ1ZTM2M2QxOTY1MDkyNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.q1wLVZJlqDytGiT_O6cbm22wCeP02hc7ZF8xD6rc3Jc';
 export const moviesApi = createApi({
   reducerPath: 'moviesApi',
   baseQuery: fetchBaseQuery({
@@ -16,7 +15,13 @@ export const moviesApi = createApi({
     getGenres: builder.query<Genres, void>({
       query: () => 'genre/movie/list',
     }),
+    getMovies: builder.query<MoviesResponse, void>({
+      query: () => 'discover/movie',
+    }),
+    getFilm: builder.query<Genre, number>({
+      query: (id) => `find/${id}`,
+    }),
   }),
 });
 
-export const { useGetGenresQuery } = moviesApi;
+export const { useGetGenresQuery, useGetMoviesQuery, useGetFilmQuery } = moviesApi;
