@@ -1,0 +1,10 @@
+.catalogWrapper {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  max-width: 128rem;
+  margin: 2.4rem auto;
+  padding: 0 2.4rem;
+}
