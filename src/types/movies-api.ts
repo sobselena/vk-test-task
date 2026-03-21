@@ -30,3 +30,8 @@ export type MoviesResponse = {
   total_pages: number;
   total_results: number;
 };
+
+export type FavoriteMoviesResponse = {
+  status_code: number;
+  status_message: string;
+};
