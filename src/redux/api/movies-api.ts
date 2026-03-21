@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { FavoriteMoviesResponse, Genre, Genres, MoviesResponse } from '../../types/movies-api';
+import type { Genre, Genres, MoviesResponse } from '../../types/movies-api';
 import { API_KEY } from '../../constants/movies-api';
-import { singleToast } from '../../utils';
 
 export const moviesApi = createApi({
   reducerPath: 'moviesApi',
@@ -22,28 +21,7 @@ export const moviesApi = createApi({
     getFilm: builder.query<Genre, number>({
       query: (id) => `find/${id}`,
     }),
-    setFavorite: builder.mutation<FavoriteMoviesResponse, number>({
-      query: (account_id) => ({
-        url: `account/${account_id}/favorite`,
-        method: 'POST',
-        body: {
-          media_type: 'movie',
-          media_id: account_id,
-          favorite: true,
-        },
-      }),
-
-      onQueryStarted: async (_, { queryFulfilled }) => {
-        try {
-          await queryFulfilled;
-          singleToast('Фильм был добавлен в Избранные', 'success');
-        } catch {
-          singleToast('Не удалось добавить фильм в Избранные', 'error');
-        }
-      },
-    }),
   }),
 });
 
-export const { useGetGenresQuery, useGetMoviesQuery, useGetFilmQuery, useSetFavoriteMutation } =
-  moviesApi;
+export const { useGetGenresQuery, useGetMoviesQuery, useGetFilmQuery } = moviesApi;

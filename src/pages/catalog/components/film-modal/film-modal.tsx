@@ -1,8 +1,11 @@
 import { Modal } from '../../../../components/modal';
 import { IMAGE_BASE_URL, OVERVIEW_LIMIT } from '../../../../constants/text';
-import { useSetFavoriteMutation } from '../../../../redux/api';
+
 import type { Movie } from '../../../../types/movies-api';
 import styles from './film-modal.module.scss';
+import { singleToast } from '../../../../utils';
+import { useDispatch } from 'react-redux';
+import { setFavorite } from '../../../../redux/reducers/favorite-slice';
 
 type Props = {
   isOpen: boolean;
@@ -11,7 +14,7 @@ type Props = {
 };
 
 export const FilmModal = ({ isOpen, onClose, selectedFilm }: Props) => {
-  const [setFavorite] = useSetFavoriteMutation();
+  const dispatch = useDispatch();
   if (!isOpen || !selectedFilm) return null;
 
   const { title, overview, poster_path } = selectedFilm;
@@ -21,6 +24,12 @@ export const FilmModal = ({ isOpen, onClose, selectedFilm }: Props) => {
       : overview || 'Описание отсутствует';
 
   const posterUrl = poster_path ? `${IMAGE_BASE_URL}${poster_path}` : '/placeholder.png';
+
+  function handleAddFavorite(movie: Movie) {
+    dispatch(setFavorite({ movieData: movie }));
+    singleToast('Фильм был успешно добавлен в Избранные', 'success');
+    onClose();
+  }
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -42,10 +51,7 @@ export const FilmModal = ({ isOpen, onClose, selectedFilm }: Props) => {
           <button
             type="button"
             className={styles.addBtn}
-            onClick={async () => {
-              await setFavorite(selectedFilm.id);
-              onClose();
-            }}
+            onClick={() => handleAddFavorite(selectedFilm)}
           >
             Добавить в избранные
           </button>
