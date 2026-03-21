@@ -26,19 +26,24 @@ export const moviesApi = createApi({
       query: (account_id) => ({
         url: `account/${account_id}/favorite`,
         method: 'POST',
-        body: account_id,
+        body: {
+          media_type: 'movie',
+          media_id: account_id,
+          favorite: true,
+        },
       }),
 
       onQueryStarted: async (_, { queryFulfilled }) => {
         try {
-          const { data } = await queryFulfilled;
-          singleToast(data.status_message, 'success');
+          await queryFulfilled;
+          singleToast('Фильм был добавлен в Избранные', 'success');
         } catch {
-          singleToast('Ну удалось добавить фильм в Избранное', 'error');
+          singleToast('Не удалось добавить фильм в Избранные', 'error');
         }
       },
     }),
   }),
 });
 
-export const { useGetGenresQuery, useGetMoviesQuery, useGetFilmQuery } = moviesApi;
+export const { useGetGenresQuery, useGetMoviesQuery, useGetFilmQuery, useSetFavoriteMutation } =
+  moviesApi;

@@ -1,6 +1,7 @@
 import styles from './film-card.module.scss';
 import { useGetGenresQuery } from '../../redux/api';
 import { AppLoader } from '../app-loader';
+import { IMAGE_BASE_URL } from '../../constants/text';
 
 type Props = {
   title: string;
@@ -8,9 +9,10 @@ type Props = {
   rating: number;
   year: string;
   genres_ids: number[];
+  onFavorite: () => void;
 };
 
-export const FilmCard = ({ title, poster, rating, year, genres_ids }: Props) => {
+export const FilmCard = ({ title, poster, rating, year, genres_ids, onFavorite }: Props) => {
   const { data, isLoading } = useGetGenresQuery();
   const genresNames = genres_ids
     .map((genreId) => data?.genres.find(({ id }) => id === genreId)?.name)
@@ -19,11 +21,7 @@ export const FilmCard = ({ title, poster, rating, year, genres_ids }: Props) => 
   return (
     <div className={styles.card}>
       <div className={styles.posterWrapper}>
-        <img
-          src={`https://image.tmdb.org/t/p/w500${poster}`}
-          alt={title}
-          className={styles.poster}
-        />
+        <img src={`${IMAGE_BASE_URL}${poster}`} alt={title} className={styles.poster} />
 
         <div className={styles.rating}>⭐ {rating.toFixed(1)}</div>
       </div>
@@ -33,7 +31,9 @@ export const FilmCard = ({ title, poster, rating, year, genres_ids }: Props) => 
           <h3 className={styles.title}>{title}</h3>
 
           <div className={styles.actions}>
-            <button className={styles.iconBtn}>❤️</button>
+            <button className={styles.iconBtn} onClick={onFavorite}>
+              ❤️
+            </button>
             <button className={styles.iconBtn}>⚖️</button>
           </div>
         </div>

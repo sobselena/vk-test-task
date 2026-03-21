@@ -6,10 +6,15 @@ import styles from './films-catalog.module.scss';
 import { useSearchParams } from 'react-router';
 import { Rating, Years } from '../../../../constants/filters';
 
+import { FilmModal } from '../film-modal';
+import type { Movie } from '../../../../types/movies-api';
+
 export const FilmsCatalog = () => {
   const { data, isLoading } = useGetMoviesQuery();
   const [searchInput, setSearchInput] = useState<string>('');
   const [searchParams] = useSearchParams();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedFilm, setSelectedFilm] = useState<Movie | null>(null);
   const genresParam = searchParams.get('genres');
   const yearsFrom = Number(searchParams.get('yearsFrom')) || Years.MIN;
   const yearsTo = Number(searchParams.get('yearsTo')) || new Date().getFullYear();
@@ -61,9 +66,14 @@ export const FilmsCatalog = () => {
               rating={film.vote_average}
               year={film.release_date?.split('-')[0]}
               genres_ids={film.genre_ids}
+              onFavorite={() => {
+                setSelectedFilm(film);
+                setIsOpen(true);
+              }}
             />
           ))}
       </div>
+      <FilmModal onClose={() => setIsOpen(false)} isOpen={isOpen} selectedFilm={selectedFilm} />
     </section>
   );
 };
