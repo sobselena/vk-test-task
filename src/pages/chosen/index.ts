@@ -1,1 +1,1 @@
-export * from './chosen-page';
+export * from './chosen-catalog';

@@ -2,11 +2,12 @@ import { Paths } from '../../constants/paths';
 import { AppLayout } from '../layouts/app-layout';
 import { ErrorPage } from '../../pages/error';
 import { AboutPage } from '../../pages/about';
-import { CatalogPage } from '../../pages/catalog';
-import { ChosenPage } from '../../pages/chosen';
+import { ChosenCatalog } from '../../pages/chosen';
 import { NotFoundPage } from '../../pages/not-found';
 import { createBrowserRouter, Navigate } from 'react-router';
 import { FilmPage } from '../../pages/film';
+import { FilmsLayout } from '../layouts/films-layout';
+import { FilmsCatalog } from '../../pages/catalog/components/films-catalog';
 
 export const router = createBrowserRouter([
   {
@@ -23,13 +24,19 @@ export const router = createBrowserRouter([
         element: <AboutPage />,
       },
       {
-        path: Paths.CATALOG,
-        element: <CatalogPage />,
+        element: <FilmsLayout />,
+        children: [
+          {
+            path: Paths.CATALOG,
+            element: <FilmsCatalog />,
+          },
+          {
+            path: Paths.CHOSEN,
+            element: <ChosenCatalog />,
+          },
+        ],
       },
-      {
-        path: Paths.CHOSEN,
-        element: <ChosenPage />,
-      },
+
       {
         path: Paths.FILM,
         element: <FilmPage />,
