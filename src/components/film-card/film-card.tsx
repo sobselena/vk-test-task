@@ -25,7 +25,7 @@ export const FilmCard = ({ moviesData, onFavorite, isChosen = false, onDelete }:
 
   return (
     <div className={styles.card}>
-      <div className={styles.posterWrapper} onClick={() => navigate(`/catalog/${id}`)}>
+      <div className={styles.posterWrapper} onClick={() => navigate(`/film/${id}`)}>
         <img src={`${IMAGE_BASE_URL}${poster_path}`} alt={title} className={styles.poster} />
 
         <div className={styles.rating}>⭐ {vote_average.toFixed(1)}</div>
