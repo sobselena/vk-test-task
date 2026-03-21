@@ -3,6 +3,7 @@ import { useGetGenresQuery } from '../../redux/api';
 import { AppLoader } from '../app-loader';
 import { IMAGE_BASE_URL } from '../../constants/text';
 import type { Movie } from '../../types/movies-api';
+import { useNavigate } from 'react-router';
 
 type Props = {
   moviesData: Movie;
@@ -12,6 +13,7 @@ type Props = {
 };
 
 export const FilmCard = ({ moviesData, onFavorite, isChosen = false, onDelete }: Props) => {
+  const navigate = useNavigate();
   const { data, isLoading } = useGetGenresQuery();
   const { id, title, poster_path, vote_average, release_date, genre_ids } = moviesData;
 
@@ -23,7 +25,7 @@ export const FilmCard = ({ moviesData, onFavorite, isChosen = false, onDelete }:
 
   return (
     <div className={styles.card}>
-      <div className={styles.posterWrapper}>
+      <div className={styles.posterWrapper} onClick={() => navigate(`/film/${id}`)}>
         <img src={`${IMAGE_BASE_URL}${poster_path}`} alt={title} className={styles.poster} />
 
         <div className={styles.rating}>⭐ {vote_average.toFixed(1)}</div>

@@ -3,7 +3,7 @@ export const Paths = {
   ABOUT: '/about',
 
   CATALOG: '/catalog',
-  FILM: '/catalog/:filmId',
+  FILM: '/film/:filmId',
   CHOSEN: '/chosen',
 
   NOT_FOUND: '/not-found',
