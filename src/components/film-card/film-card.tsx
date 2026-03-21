@@ -2,28 +2,31 @@ import styles from './film-card.module.scss';
 import { useGetGenresQuery } from '../../redux/api';
 import { AppLoader } from '../app-loader';
 import { IMAGE_BASE_URL } from '../../constants/text';
+import type { Movie } from '../../types/movies-api';
 
 type Props = {
-  title: string;
-  poster: string;
-  rating: number;
-  year: string;
-  genres_ids: number[];
-  onFavorite: () => void;
+  moviesData: Movie;
+  onFavorite?: () => void;
+  onDelete?: (id: number) => void;
+  isChosen?: boolean;
 };
 
-export const FilmCard = ({ title, poster, rating, year, genres_ids, onFavorite }: Props) => {
+export const FilmCard = ({ moviesData, onFavorite, isChosen = false, onDelete }: Props) => {
   const { data, isLoading } = useGetGenresQuery();
-  const genresNames = genres_ids
+  const { id, title, poster_path, vote_average, release_date, genre_ids } = moviesData;
+
+  const year = release_date.split('-')[0];
+
+  const genresNames = genre_ids
     .map((genreId) => data?.genres.find(({ id }) => id === genreId)?.name)
     .filter(Boolean);
 
   return (
     <div className={styles.card}>
       <div className={styles.posterWrapper}>
-        <img src={`${IMAGE_BASE_URL}${poster}`} alt={title} className={styles.poster} />
+        <img src={`${IMAGE_BASE_URL}${poster_path}`} alt={title} className={styles.poster} />
 
-        <div className={styles.rating}>⭐ {rating.toFixed(1)}</div>
+        <div className={styles.rating}>⭐ {vote_average.toFixed(1)}</div>
       </div>
 
       <div className={styles.info}>
@@ -31,10 +34,18 @@ export const FilmCard = ({ title, poster, rating, year, genres_ids, onFavorite }
           <h3 className={styles.title}>{title}</h3>
 
           <div className={styles.actions}>
-            <button className={styles.iconBtn} onClick={onFavorite}>
-              ❤️
-            </button>
-            <button className={styles.iconBtn}>⚖️</button>
+            {isChosen ? (
+              <button className={styles.iconBtn} onClick={() => onDelete?.(id)}>
+                🗑️
+              </button>
+            ) : (
+              <>
+                <button className={styles.iconBtn} onClick={onFavorite}>
+                  ❤️
+                </button>
+                <button className={styles.iconBtn}>⚖️</button>
+              </>
+            )}
           </div>
         </div>
 
