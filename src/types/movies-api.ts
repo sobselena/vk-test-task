@@ -35,3 +35,15 @@ export type FavoriteMoviesResponse = {
   status_code: number;
   status_message: string;
 };
+
+export type MovieDetails = {
+  id: number;
+  title: string;
+  poster_path: string;
+  release_date: string;
+  vote_average: number;
+  overview: string;
+  original_language: string;
+  popularity: number;
+  genres: Genre[];
+};

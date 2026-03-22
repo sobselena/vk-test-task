@@ -18,25 +18,15 @@
   align-items: center;
   justify-content: space-between;
 
-  padding: 2rem;
+  padding: 1.6rem 2rem;
   border-bottom: var(--border-default);
 }
 
 .title {
-  font-size: 2rem;
-  font-weight: 700;
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
   color: var(--color-text);
-}
-
-.close {
-  cursor: pointer;
-
-  border: none;
-
-  font-size: 2rem;
-  color: var(--color-text-secondary);
-
-  background: none;
 }
 
 .content {
