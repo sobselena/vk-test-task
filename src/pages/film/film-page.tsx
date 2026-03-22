@@ -7,9 +7,9 @@ import { IMAGE_BASE_URL } from '../../constants/text';
 export const FilmPage = () => {
   const { filmId } = useParams();
   const navigate = useNavigate();
-
-  const { data: filmDetails, isLoading } = useGetFilmDetailsQuery(Number(filmId));
-
+  const { data: filmDetails, isLoading } = useGetFilmDetailsQuery(Number(filmId), {
+    skip: !filmId,
+  });
   const releaseYear = filmDetails?.release_date?.split('-')[0];
 
   const genreNames = filmDetails?.genres?.length
