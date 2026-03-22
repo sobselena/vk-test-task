@@ -1,0 +1,57 @@
+.film {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 128rem;
+  margin: 0 auto;
+  padding: 2.4rem;
+}
+
+.backBtn {
+  cursor: pointer;
+
+  margin-bottom: 2rem;
+  border: none;
+
+  font-size: 1.4rem;
+
+  background: none;
+}
+
+.container {
+  display: flex;
+  gap: 2.4rem;
+}
+
+.poster {
+  width: 300px;
+  border-radius: 1rem;
+}
+
+.info {
+  max-width: 600px;
+}
+
+.title {
+  margin-bottom: 1rem;
+  font-size: 2.4rem;
+}
+
+.rating {
+  margin-bottom: 1.6rem;
+  font-size: 1.6rem;
+}
+
+.overview {
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 1.4rem;
+  color: var(--color-text-secondary);
+}

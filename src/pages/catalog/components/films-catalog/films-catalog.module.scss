@@ -1,0 +1,39 @@
+.wrapper {
+  position: relative;
+}
+
+.posters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.6rem;
+
+  img {
+    width: 50%;
+    height: 18rem;
+    border-radius: 0.8rem;
+    object-fit: cover;
+  }
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+
+  td {
+    padding: 0.8rem;
+    border-bottom: 1px solid #eee;
+    font-size: 1.4rem;
+  }
+
+  td:first-child {
+    width: 30%;
+    font-weight: 500;
+    color: #666;
+  }
+}
+
+.empty {
+  margin-left: 2rem;
+  font-weight: 500;
+  color: var(--color-primary);
+}
