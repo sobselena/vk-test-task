@@ -5,6 +5,7 @@ import { FilmCard } from '../../../../components/film-card';
 import { FilmModal } from '../film-modal';
 import type { Movie } from '../../../../types/movies-api';
 import styles from './films-catalog.module.scss';
+import { useFilterResults } from '../../../../hooks';
 
 export const FilmsCatalog = () => {
   const [page, setPage] = useState(1);
@@ -18,8 +19,8 @@ export const FilmsCatalog = () => {
   useEffect(() => {
     if (data?.results) {
       setMovies((prev) => {
-        const ids = new Set(prev.map((movieData) => movieData.id));
-        const newMovies = data.results.filter((movieData) => !ids.has(movieData.id));
+        const ids = new Set(prev.map((m) => m.id));
+        const newMovies = data.results.filter((m) => !ids.has(m.id));
         return [...prev, ...newMovies];
       });
     }
@@ -33,49 +34,31 @@ export const FilmsCatalog = () => {
 
       if (observer.current) observer.current.disconnect();
 
-      observer.current = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting) {
-            setPage((prev) => prev + 1);
-          }
-        },
-        {
-          threshold: 0,
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setPage((prev) => prev + 1);
         }
-      );
+      });
 
       if (node) observer.current.observe(node);
     },
     [isLoading]
   );
 
+  const filteredMovies = useFilterResults(movies);
+
   return (
     <>
       <Catalog isLoading={isLoading}>
         {(searchInput) => {
-          const filtered = movies.filter((film) =>
+          const filtered = filteredMovies.filter((film) =>
             film.title.toLowerCase().includes(searchInput.toLowerCase())
           );
 
-          return filtered.length > 0 ? (
-            filtered.map((film, index) => {
-              const isLast = index === filtered.length - 1;
-
-              if (isLast) {
-                return (
-                  <div ref={lastElementRef} key={film.id}>
-                    <FilmCard
-                      moviesData={film}
-                      onFavorite={() => {
-                        setSelectedFilm(film);
-                        setIsOpen(true);
-                      }}
-                    />
-                  </div>
-                );
-              }
-
-              return (
+          return (
+            <>
+              {filtered.length === 0 && !isLoading && <p className={styles.empty}>Нет фильмов</p>}
+              {filtered.map((film) => (
                 <FilmCard
                   key={film.id}
                   moviesData={film}
@@ -84,10 +67,10 @@ export const FilmsCatalog = () => {
                     setIsOpen(true);
                   }}
                 />
-              );
-            })
-          ) : isLoading ? null : (
-            <p className={styles.empty}>Нет фильмов</p>
+              ))}
+
+              <div ref={lastElementRef} />
+            </>
           );
         }}
       </Catalog>
