@@ -8,35 +8,43 @@ export const FilmPage = () => {
   const { filmId } = useParams();
   const navigate = useNavigate();
 
-  const { data, isLoading } = useGetFilmDetailsQuery(Number(filmId));
-  const year = data?.release_date?.split('-')[0];
+  const { data: filmDetails, isLoading } = useGetFilmDetailsQuery(Number(filmId));
+
+  const releaseYear = filmDetails?.release_date?.split('-')[0];
+
+  const genreNames = filmDetails?.genres?.length
+    ? filmDetails.genres.map((genre) => genre.name).join(', ')
+    : '-';
 
   return (
     <section className={styles.film}>
       <button className={styles.backBtn} onClick={() => navigate(-1)}>
         ← Назад
       </button>
+
       {isLoading && <AppLoader />}
-      {data?.id && (
+
+      {filmDetails?.id && (
         <div className={styles.container}>
           <img
-            src={`${IMAGE_BASE_URL}${data.poster_path}`}
-            alt={data.title}
+            src={`${IMAGE_BASE_URL}${filmDetails.poster_path}`}
+            alt={filmDetails.title}
             className={styles.poster}
           />
 
           <div className={styles.info}>
             <h1 className={styles.title}>
-              {data.title} {year && <span>({year})</span>}
+              {filmDetails.title} {releaseYear && <span>({releaseYear})</span>}
             </h1>
 
-            <div className={styles.rating}>⭐ {data.vote_average.toFixed(1)}</div>
+            <div className={styles.rating}>⭐ {filmDetails.vote_average.toFixed(1)}</div>
 
-            <p className={styles.overview}>{data.overview}</p>
+            <p className={styles.overview}>{filmDetails.overview}</p>
 
             <div className={styles.meta}>
-              <span>Язык: {data.original_language.toUpperCase()}</span>
-              <span>Популярность: {Math.round(data.popularity)}</span>
+              <span>Жанры: {genreNames}</span>
+              <span>Язык: {filmDetails.original_language.toUpperCase()}</span>
+              <span>Популярность: {Math.round(filmDetails.popularity)}</span>
             </div>
           </div>
         </div>

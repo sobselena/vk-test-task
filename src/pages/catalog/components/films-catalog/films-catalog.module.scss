@@ -1,35 +1,39 @@
-.searchInputContainer {
+.wrapper {
   position: relative;
-  margin-bottom: 2rem;
 }
 
-.filmsContainer {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+.posters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.6rem;
+
+  img {
+    width: 50%;
+    height: 18rem;
+    border-radius: 0.8rem;
+    object-fit: cover;
+  }
 }
 
-.searchInput {
+.table {
+  border-collapse: collapse;
   width: 100%;
-  padding: 0.8rem 1.6rem;
-  border: 2px solid var(--color-border);
-  border-radius: 1rem;
 
-  font-family: inherit;
-  font-size: 1.6rem;
+  td {
+    padding: 0.8rem;
+    border-bottom: 1px solid #eee;
+    font-size: 1.4rem;
+  }
 
-  box-shadow: 0 1rem 2rem rgba($color: #222, $alpha: 0.1);
-}
-
-.searchLogo {
-  position: absolute;
-  top: 46%;
-  right: 1.5rem;
-  transform: translateY(-50%);
+  td:first-child {
+    width: 30%;
+    font-weight: 500;
+    color: #666;
+  }
 }
 
 .empty {
-  color: var(--color-primary);
-  font-weight: 500;
   margin-left: 2rem;
+  font-weight: 500;
+  color: var(--color-primary);
 }

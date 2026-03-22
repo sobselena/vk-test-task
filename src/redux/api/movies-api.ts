@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { Genre, Genres, Movie, MoviesResponse } from '../../types/movies-api';
+import type { Genre, Genres, MovieDetails, MoviesResponse } from '../../types/movies-api';
 import { API_KEY } from '../../constants/movies-api';
 
 export const moviesApi = createApi({
@@ -15,13 +15,13 @@ export const moviesApi = createApi({
     getGenres: builder.query<Genres, void>({
       query: () => 'genre/movie/list',
     }),
-    getMovies: builder.query<MoviesResponse, void>({
-      query: () => 'discover/movie',
+    getMovies: builder.query<MoviesResponse, number | undefined>({
+      query: (page = 1) => `discover/movie?page=${page}`,
     }),
     getFilm: builder.query<Genre, number>({
       query: (id) => `find/${id}`,
     }),
-    getFilmDetails: builder.query<Movie, number>({
+    getFilmDetails: builder.query<MovieDetails, number>({
       query: (movie_id) => `movie/${movie_id}`,
     }),
   }),

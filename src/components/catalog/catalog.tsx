@@ -23,8 +23,8 @@ export const Catalog = ({ children, isLoading = false }: Props) => {
       </div>
 
       <div className={styles.filmsContainer}>
-        {isLoading && <AppLoader />}
         {children(searchInput)}
+        {isLoading && <AppLoader />}
       </div>
     </>
   );
